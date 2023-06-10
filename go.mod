@@ -1,4 +1,4 @@
-module github.com/muhammadkhon-abdulloev/pkg/logger
+module github.com/muhammadkhon-abdulloev/pkg
 
 go 1.20
 
