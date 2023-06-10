@@ -20,6 +20,10 @@ func (l *Logger) SetLogger(logger *zap.Logger) {
 	l.logger = logger
 }
 
+func (l *Logger) GetLogger() *zap.Logger {
+	return l.logger
+}
+
 func (l *Logger) InitLogger(c Config) error {
 	var (
 		encoderCfg zapcore.EncoderConfig
