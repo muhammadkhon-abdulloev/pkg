@@ -9,7 +9,7 @@ import (
 )
 
 type Logger struct {
-	sugaredLogger *zap.SugaredLogger
+	logger *zap.Logger
 }
 
 func NewLogger() *Logger {
@@ -17,7 +17,7 @@ func NewLogger() *Logger {
 }
 
 func (l *Logger) SetLogger(logger *zap.Logger) {
-	l.sugaredLogger = logger.Sugar()
+	l.logger = logger
 }
 
 func (l *Logger) InitLogger(c Config) error {
@@ -73,57 +73,61 @@ func (l *Logger) InitLogger(c Config) error {
 }
 
 func (l *Logger) Info(args ...any) {
-	l.sugaredLogger.Info(args...)
+	l.logger.Sugar().Info(args...)
 }
 
 func (l *Logger) Infof(template string, args ...any) {
-	l.sugaredLogger.Infof(template, args...)
+	l.logger.Sugar().Infof(template, args...)
 }
 
 func (l *Logger) Warn(args ...any) {
-	l.sugaredLogger.Warn(args...)
+	l.logger.Sugar().Warn(args...)
 }
 
 func (l *Logger) Warnf(template string, args ...any) {
-	l.sugaredLogger.Warnf(template, args...)
+	l.logger.Sugar().Warnf(template, args...)
 }
 
 func (l *Logger) Error(args ...any) {
-	l.sugaredLogger.Error(args...)
+	l.logger.Sugar().Error(args...)
 }
 
 func (l *Logger) Errorf(template string, args ...any) {
-	l.sugaredLogger.Errorf(template, args...)
+	l.logger.Sugar().Errorf(template, args...)
 }
 
 func (l *Logger) Debug(args ...any) {
-	l.sugaredLogger.Debug(args...)
+	l.logger.Sugar().Debug(args...)
 }
 
 func (l *Logger) Debugf(template string, args ...any) {
-	l.sugaredLogger.Debugf(template, args...)
+	l.logger.Sugar().Debugf(template, args...)
 }
 
 func (l *Logger) Fatal(args ...any) {
-	l.sugaredLogger.Fatal(args...)
+	l.logger.Sugar().Fatal(args...)
 }
 
 func (l *Logger) Fatalf(template string, args ...any) {
-	l.sugaredLogger.Fatalf(template, args...)
+	l.logger.Sugar().Fatalf(template, args...)
 }
 
 func (l *Logger) Panic(args ...any) {
-	l.sugaredLogger.Panic(args...)
+	l.logger.Sugar().Panic(args...)
 }
 
 func (l *Logger) Panicf(template string, args ...any) {
-	l.sugaredLogger.Panicf(template, args...)
+	l.logger.Sugar().Panicf(template, args...)
 }
 
 func (l *Logger) DPanic(args ...any) {
-	l.sugaredLogger.DPanic(args...)
+	l.logger.Sugar().DPanic(args...)
 }
 
 func (l *Logger) DPanicf(template string, args ...any) {
-	l.sugaredLogger.DPanicf(template, args...)
+	l.logger.Sugar().DPanicf(template, args...)
+}
+
+func (l *Logger) Log(lvl zapcore.Level, msg string, fields ...zapcore.Field) {
+	l.logger.Log(lvl, msg, fields...)
 }
