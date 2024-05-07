@@ -36,12 +36,12 @@ func Init(c *Config) {
 }
 
 func GeneratePairs(userID string) (Tokens, error) {
-	accessToken, err := Generate(userID, accessTokenExp).SignedString([]byte(key))
+	accessToken, err := generate(userID, accessTokenExp).SignedString([]byte(key))
 	if err != nil {
 		return Tokens{}, err
 	}
 
-	refreshToken, err := Generate(userID, refreshTokenExp).SignedString([]byte(key))
+	refreshToken, err := generate(userID, refreshTokenExp).SignedString([]byte(key))
 	if err != nil {
 		return Tokens{}, err
 	}
@@ -52,7 +52,7 @@ func GeneratePairs(userID string) (Tokens, error) {
 	}, nil
 }
 
-func Generate(userID string, exp time.Duration) *jwt.Token {
+func generate(userID string, exp time.Duration) *jwt.Token {
 	issuedAt := time.Now()
 	expiration := issuedAt.Add(exp)
 
@@ -67,7 +67,7 @@ func Generate(userID string, exp time.Duration) *jwt.Token {
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 }
 
-func Verify(key, token string) (jwt.Claims, error) {
+func Verify(token string) (jwt.Claims, error) {
 	jwtToken, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		return []byte(key), nil
 	})
